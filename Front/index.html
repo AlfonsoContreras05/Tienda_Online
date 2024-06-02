@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">Tienda Online</h1>
+        <div class="row mb-3">
+            <div class="col">
+                <input type="text" id="search" class="form-control" placeholder="Buscar productos">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <select id="filterCategory" class="form-control">
+                    <option value="all">Todas las Categorías</option>
+                </select>
+            </div>
+            <div class="col">
+                <select id="sortOrder" class="form-control">
+                    <option value="asc">Precio: Menor a Mayor</option>
+                    <option value="desc">Precio: Mayor a Menor</option>
+                </select>
+            </div>
+        </div>
+        <div id="products" class="row"></div>
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#" id="prevPage">Anterior</a></li>
+                <li class="page-item"><a class="page-link" href="#" id="nextPage">Siguiente</a></li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+    <script src="funciones.js"></script>
+</body>
+</html>
