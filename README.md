@@ -16,7 +16,7 @@ La aplicación incluye las siguientes rutas principales:
 
 -`GET /products`: Muestra todos los productos con paginación.
 -`GET /search`: Permite buscar productos por nombre.
--`GET /product/`:id: Muestra la información de un producto específico.
+-`GET /product/:id` : Muestra la información de un producto específico.
 
 ## Para la proxima actualizacion
 -`POST /product`: Permite añadir un nuevo producto al catálogo.
@@ -38,12 +38,12 @@ Para ejecutar "Tienda Online" localmente, necesitas tener instalado Node.js y My
 4. Configura las variables de entorno según tu configuración de MySQL en un archivo
     `.env`:
 
-makefile
-Copiar código
-DB_HOST=localhost
-DB_USER=tu_usuario
-DB_PASS=tu_contraseña
-DB_NAME=tu_base_de_datos
+5. makefile
+
+-DB_HOST=localhost
+-DB_USER=tu_usuario
+-DB_PASS=tu_contraseña
+-DB_NAME=tu_base_de_datos
 
 6. Inicia el servidor:
 `npm start`
