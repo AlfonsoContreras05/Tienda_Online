@@ -205,9 +205,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalProductImage').src = producto.url_image;
         document.getElementById('modalProductName').textContent = `Nombre: ${producto.name}`;
         document.getElementById('modalProductPrice').textContent = `Precio: $${producto.price}`;
-        document.getElementById('modalProductDescription').textContent = `Descripción: ${producto.description}`;
-        document.getElementById('modalProductStock').textContent = `Stock: ${producto.stock}`;
-        document.getElementById('modalProductSku').textContent = `SKU: ${producto.sku}`;
+        document.getElementById('modalProductDescription').textContent = `Descuento: ${producto.descount}`;
+        document.getElementById('modalProductStock').textContent = `Categoria: ${producto.category}`;
+
         jQuery('#productModal').modal('show');
     }
 
