@@ -14,14 +14,14 @@ Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
 ## Rutas
 La aplicación incluye las siguientes rutas principales:
 
--`GET /products`: Muestra todos los productos con paginación.
--`GET /search`: Permite buscar productos por nombre.
--`GET /product/:id` : Muestra la información de un producto específico.
+- `GET /products`: Muestra todos los productos con paginación.
+- `GET /search`: Permite buscar productos por nombre.
+- `GET /product/:id` : Muestra la información de un producto específico.
 
 ## Para la proxima actualizacion
--`POST /product`: Permite añadir un nuevo producto al catálogo.
--`PUT /product/:id`: Permite actualizar la información de un producto existente.
--`DELETE /product/:id`: Elimina un producto del catálogo.
+- `POST /product`: Permite añadir un nuevo producto al catálogo.
+- `PUT /product/:id`: Permite actualizar la información de un producto existente.
+- `DELETE /product/:id`: Elimina un producto del catálogo.
 
 ## Instalación
 Para ejecutar "Tienda Online" localmente, necesitas tener instalado Node.js y MySQL. Sigue estos pasos para la instalación:
