@@ -1,40 +1,42 @@
-Tienda Online - Sistema de Gestión de Productos
-Tienda Online es una aplicación de simulación de una tienda que permite a los usuarios buscar, filtrar, ordenar y ver detalles de productos. Además, los usuarios pueden navegar entre páginas de productos y ver detalles específicos de cada uno.
 
-Despliegue
-La aplicación está desplegada en Render y se puede acceder a ella a través del siguiente enlace:
 
-Tienda Online en Render
+## Tienda Online
+"Tienda Online" es una aplicación web diseñada para gestionar un catálogo de productos, permitiendo a los usuarios buscar, filtrar, ordenar y ver detalles de los productos disponibles.
 
-Características
-Búsqueda de Productos: Permite a los usuarios buscar productos por nombre.
-Filtrado por Categoría: Filtra los productos por diferentes categorías.
-Ordenar por Precio: Ordena los productos por precio, de menor a mayor o de mayor a menor.
-Paginación: Navega entre diferentes páginas de productos.
-Detalles del Producto: Muestra detalles específicos de cada producto en un modal.
-Tecnologías Utilizadas
-HTML5 JavaScript Bootstrap NodeJS Express.js 
- DOTENV
+## Despliegue
+La aplicación está desplegada y accesible en el siguiente enlace: [Mi Repertorio en Render](https://mi-repertorio.onrender.com).
 
-Configuración del Proyecto
-Requisitos Previos
-Asegúrate de tener instalado Node.js, npm y MySQL en tu sistema. Puedes descargarlos desde sus respectivos sitios web:
+## Tecnologías Utilizadas
+Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
 
-Node.js: https://nodejs.org/
-MySQL: https://www.mysql.com/downloads/
-Instalación
-Clona este repositorio en tu máquina local:
-git clone https://github.com/tu-usuario/tu-repositorio.git
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)![DOTENV](https://img.shields.io/badge/dotenv-0000?style=for-the-badge&logo=dotenv&logoColor=fff&color=b0a321) 
 
-Navega al directorio del proyecto:
-cd tu-repositorio
+## Rutas
+La aplicación incluye las siguientes rutas principales:
 
-Instala las dependencias necesarias:
-npm install
+-`GET /products`: Muestra todos los productos con paginación.
+-`GET /search`: Permite buscar productos por nombre.
+-`GET /product/`:id: Muestra la información de un producto específico.
 
-Configura tu base de datos MySQL y ajusta las credenciales de conexión en el archivo .env.
+## Para la proxima actualizacion
+-`POST /product`: Permite añadir un nuevo producto al catálogo.
+-`PUT /product/:id`: Permite actualizar la información de un producto existente.
+-`DELETE /product/:id`: Elimina un producto del catálogo.
 
-Crea tu base de datos local o remota según tus preferencias y configura el archivo .env con las siguientes variables:
+## Instalación
+Para ejecutar "Tienda Online" localmente, necesitas tener instalado Node.js y MySQL. Sigue estos pasos para la instalación:
+
+1. Clona el repositorio:
+    `git clone https://github.com/tu-usuario/tu-repositorio.git`
+
+2. Navega al directorio del proyecto:
+    `cd tu-repositorio`
+
+3. Instala las dependencias:
+    `npm install`
+
+4. Configura las variables de entorno según tu configuración de MySQL en un archivo
+    `.env`:
 
 makefile
 Copiar código
@@ -42,15 +44,8 @@ DB_HOST=localhost
 DB_USER=tu_usuario
 DB_PASS=tu_contraseña
 DB_NAME=tu_base_de_datos
-Inicia el servidor:
 
-npm start
+6. Inicia el servidor:
+`npm start`
 
-El servidor debería estar corriendo y accesible en http://localhost:3000.
-
-Uso
-Para buscar productos, utiliza el campo de búsqueda en la parte superior de la página.
-Para filtrar productos por categoría, utiliza el menú desplegable de categorías.
-Para ordenar productos por precio, utiliza el menú desplegable de ordenamiento.
-Para navegar entre páginas, utiliza los botones de paginación en la parte inferior.
-Para ver los detalles de un producto, haz clic en la tarjeta del producto.
+`El servidor debería estar corriendo y accesible en http://localhost:3000.`
