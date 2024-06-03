@@ -10,10 +10,6 @@ body {
     font-family: var(--main-font);
 }
 
-h1 {
-    text-align: center;
-}
-
 #search, #filterCategory, #sortOrder {
     margin-bottom: 20px;
 }
@@ -26,10 +22,10 @@ h1 {
 
 .product-category {
     display: flex;
-    flex-wrap: wrap; /* Permitir que las tarjetas se envuelvan */
+    flex-wrap: wrap;
     width: 100%;
     margin-bottom: 20px;
-    justify-content: center; /* Centrar las tarjetas dentro de la categoría */
+    justify-content: center;
 }
 
 .product-category h2 {
@@ -43,13 +39,14 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .product-card {
     display: flex;
     flex-direction: column;
     border: 1px solid var(--border-color);
     margin: 10px;
     padding: 10px;
-    width: calc(20% - 20px); /* Ajustar el ancho para 5 productos por fila */
+    width: calc(20% - 20px);
     text-align: center;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 8px var(--box-shadow-color);
@@ -72,4 +69,3 @@ h1 {
 .product-card p {
     margin: 0;
 }
-

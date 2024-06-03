@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const productsDiv = document.getElementById('products');
     const prevPageBtn = document.getElementById('prevPage');
     const nextPageBtn = document.getElementById('nextPage');
+    const paginationDiv = document.querySelector('.pagination');
 
     let productsData = [];
+    let allCategories = new Set();
     let currentPage = 1;
     const limit = 10;
     let totalPages = 1;
@@ -50,18 +52,25 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 productsData = data.products;
                 totalPages = data.totalPages;
-                populateCategoryFilter(productsData);
+                updateAllCategories(productsData);
                 filterAndDisplayProducts();
+                updatePagination();
             })
             .catch(error => {
                 console.error('Error fetching products:', error);
             });
     }
 
-    function populateCategoryFilter(products) {
+    function updateAllCategories(products) {
+        products.forEach(product => {
+            allCategories.add(product.category);
+        });
+        populateCategoryFilter();
+    }
+
+    function populateCategoryFilter() {
         filterCategory.innerHTML = '<option value="all">Todas las Categorías</option>';
-        const categories = new Set(products.map(product => product.category));
-        categories.forEach(category => {
+        allCategories.forEach(category => {
             const option = document.createElement('option');
             option.value = category;
             option.textContent = category;
@@ -127,10 +136,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 productDiv.appendChild(productImage);
                 productDiv.appendChild(productInfo);
-                categoryDiv.appendChild(productDiv);
+                productCardContainer.appendChild(productDiv);
             });
+
             categoryDiv.appendChild(productCardContainer);
             productsDiv.appendChild(categoryDiv);
         }
+    }
+
+    function updatePagination() {
+        paginationDiv.innerHTML = '';
+        
+        const prevPage = document.createElement('li');
+        prevPage.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
+        const prevLink = document.createElement('a');
+        prevLink.className = 'page-link';
+        prevLink.href = '#';
+        prevLink.id = 'prevPage';
+        prevLink.textContent = 'Anterior';
+        prevPage.appendChild(prevLink);
+        paginationDiv.appendChild(prevPage);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageItem = document.createElement('li');
+            pageItem.className = 'page-item' + (i === currentPage ? ' active' : '');
+            const pageLink = document.createElement('a');
+            pageLink.className = 'page-link';
+            pageLink.href = '#';
+            pageLink.textContent = i;
+            pageLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                currentPage = i;
+                fetchProducts();
+            });
+            pageItem.appendChild(pageLink);
+            paginationDiv.appendChild(pageItem);
+        }
+
+        const nextPage = document.createElement('li');
+        nextPage.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
+        const nextLink = document.createElement('a');
+        nextLink.className = 'page-link';
+        nextLink.href = '#';
+        nextLink.id = 'nextPage';
+        nextLink.textContent = 'Siguiente';
+        nextPage.appendChild(nextLink);
+        paginationDiv.appendChild(nextPage);
     }
 });
