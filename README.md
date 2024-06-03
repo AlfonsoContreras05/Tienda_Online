@@ -52,8 +52,6 @@ Para ejecutar "Tienda Online" localmente, necesitas tener instalado Node.js y My
 6. Inicia el servidor:
 `npm start`
 
-<<<<<<< HEAD
+
 `El servidor debería estar corriendo y accesible en http://localhost:3000.`
-=======
-`El servidor debería estar corriendo y accesible en http://localhost:3000.`
->>>>>>> 5ab4c3346c7d9c307bff93899d84e769b500f61a
+
