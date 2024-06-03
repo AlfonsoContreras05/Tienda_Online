@@ -207,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalProductPrice').textContent = `Precio: $${producto.price}`;
         document.getElementById('modalProductDescription').textContent = `Descuento: ${producto.discount}`;
         document.getElementById('modalProductStock').textContent = `Categoria: ${producto.category}`;
-
         jQuery('#productModal').modal('show');
     }
 
