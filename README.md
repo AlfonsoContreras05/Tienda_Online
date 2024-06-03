@@ -4,11 +4,11 @@
 "Tienda Online" es una aplicación web diseñada para gestionar un catálogo de productos, permitiendo a los usuarios buscar, filtrar, ordenar y ver detalles de los productos disponibles.
 
 ## Despliegue
-<<<<<<< HEAD
-La aplicación está desplegada y accesible en el siguiente enlace: [Mi Repertorio en Render](https://mi-repertorio.onrender.com).
-=======
+
+El Back-End está desplegado en el siguiente enlace: [Mi Back](https://tienda-online-ksl6.onrender.com).
+
 La aplicación está desplegada y accesible en el siguiente enlace: [Tienda](https://ptecnicatonline.netlify.app/).
->>>>>>> 5ab4c3346c7d9c307bff93899d84e769b500f61a
+
 
 ## Tecnologías Utilizadas
 Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
@@ -52,8 +52,6 @@ Para ejecutar "Tienda Online" localmente, necesitas tener instalado Node.js y My
 6. Inicia el servidor:
 `npm start`
 
-<<<<<<< HEAD
+
 `El servidor debería estar corriendo y accesible en http://localhost:3000.`
-=======
-`El servidor debería estar corriendo y accesible en http://localhost:3000.`
->>>>>>> 5ab4c3346c7d9c307bff93899d84e769b500f61a
+
