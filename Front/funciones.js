@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalProductImage').src = producto.url_image;
         document.getElementById('modalProductName').textContent = `Nombre: ${producto.name}`;
         document.getElementById('modalProductPrice').textContent = `Precio: $${producto.price}`;
-        document.getElementById('modalProductDescription').textContent = `Descuento: ${producto.descount}`;
+        document.getElementById('modalProductDescription').textContent = `Descuento: ${producto.discount}`;
         document.getElementById('modalProductStock').textContent = `Categoria: ${producto.category}`;
 
         jQuery('#productModal').modal('show');
