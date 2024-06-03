@@ -5,7 +5,7 @@
 
 ## Despliegue
 <<<<<<< HEAD
-La aplicación está desplegada y accesible en el siguiente enlace: [Mi Repertorio en Render](https://mi-repertorio.onrender.com).
+El Back-End está desplegado en el siguiente enlace: [Mi Repertorio en Render](https://mi-repertorio.onrender.com)](https://tienda-online-ksl6.onrender.com).
 =======
 La aplicación está desplegada y accesible en el siguiente enlace: [Tienda](https://ptecnicatonline.netlify.app/).
 >>>>>>> 5ab4c3346c7d9c307bff93899d84e769b500f61a
