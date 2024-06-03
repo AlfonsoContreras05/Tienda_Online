@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para obtener productos desde el servidor
     function obtenerProductos() {
-        fetch(`http://localhost:3000/products?page=${paginaActual}&limit=${limite}`)
+        fetch(`https://ptecnicatonline.netlify.app/products?page=${paginaActual}&limit=${limite}`)
             .then(response => response.json())
             .then(data => {
                 datosProductos = data.products;
