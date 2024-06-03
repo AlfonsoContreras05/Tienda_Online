@@ -4,7 +4,7 @@
 "Tienda Online" es una aplicación web diseñada para gestionar un catálogo de productos, permitiendo a los usuarios buscar, filtrar, ordenar y ver detalles de los productos disponibles.
 
 ## Despliegue
-La aplicación está desplegada y accesible en el siguiente enlace: [Mi Repertorio en Render](https://mi-repertorio.onrender.com).
+La aplicación está desplegada y accesible en el siguiente enlace: [Tienda](https://ptecnicatonline.netlify.app/).
 
 ## Tecnologías Utilizadas
 Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
