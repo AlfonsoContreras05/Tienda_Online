@@ -40,10 +40,10 @@ Para ejecutar "Tienda Online" localmente, necesitas tener instalado Node.js y My
 
 5. makefile
 
--DB_HOST=localhost
--DB_USER=tu_usuario
--DB_PASS=tu_contraseña
--DB_NAME=tu_base_de_datos
+- DB_HOST=localhost
+- DB_USER=tu_usuario
+- DB_PASS=tu_contraseña
+- DB_NAME=tu_base_de_datos
 
 6. Inicia el servidor:
 `npm start`
