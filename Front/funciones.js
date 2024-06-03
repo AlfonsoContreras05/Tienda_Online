@@ -1,186 +1,216 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('search');
-    const filterCategory = document.getElementById('filterCategory');
-    const sortOrder = document.getElementById('sortOrder');
-    const productsDiv = document.getElementById('products');
-    const prevPageBtn = document.getElementById('prevPage');
-    const nextPageBtn = document.getElementById('nextPage');
-    const paginationDiv = document.querySelector('.pagination');
+    const buscarInput = document.getElementById('search');
+    const filtrarCategoria = document.getElementById('filterCategory');
+    const ordenarPrecio = document.getElementById('sortOrder');
+    const productosDiv = document.getElementById('products');
+    const btnPaginaAnterior = document.getElementById('prevPage');
+    const btnPaginaSiguiente = document.getElementById('nextPage');
+    const paginacionDiv = document.querySelector('.pagination');
 
-    let productsData = [];
-    let allCategories = new Set();
-    let currentPage = 1;
-    const limit = 10;
-    let totalPages = 1;
+    let datosProductos = [];
+    let todasCategorias = new Set();
+    let paginaActual = 1;
+    const limite = 100;
+    let totalPaginas = 1;
 
-    searchInput.addEventListener('input', () => {
-        currentPage = 1;
-        filterAndDisplayProducts();
+    // Escuchadores de eventos para los filtros y búsqueda
+    buscarInput.addEventListener('input', () => {
+        paginaActual = 1;
+        filtrarYMostrarProductos();
     });
 
-    filterCategory.addEventListener('change', () => {
-        currentPage = 1;
-        filterAndDisplayProducts();
+    filtrarCategoria.addEventListener('change', () => {
+        paginaActual = 1;
+        filtrarYMostrarProductos();
     });
 
-    sortOrder.addEventListener('change', () => {
-        currentPage = 1;
-        filterAndDisplayProducts();
+    ordenarPrecio.addEventListener('change', () => {
+        paginaActual = 1;
+        filtrarYMostrarProductos();
     });
 
-    prevPageBtn.addEventListener('click', (event) => {
+    // Escuchadores de eventos para la paginación
+    btnPaginaAnterior.addEventListener('click', (event) => {
         event.preventDefault();
-        if (currentPage > 1) {
-            currentPage--;
-            fetchProducts();
+        if (paginaActual > 1) {
+            paginaActual--;
+            obtenerProductos();
         }
     });
 
-    nextPageBtn.addEventListener('click', (event) => {
+    btnPaginaSiguiente.addEventListener('click', (event) => {
         event.preventDefault();
-        if (currentPage < totalPages) {
-            currentPage++;
-            fetchProducts();
+        if (paginaActual < totalPaginas) {
+            paginaActual++;
+            obtenerProductos();
         }
     });
 
-    fetchProducts();
-
-    function fetchProducts() {
-        fetch(`http://localhost:3000/products?page=${currentPage}&limit=${limit}`)
+    // Función para obtener productos desde el servidor
+    function obtenerProductos() {
+        fetch(`http://localhost:3000/products?page=${paginaActual}&limit=${limite}`)
             .then(response => response.json())
             .then(data => {
-                productsData = data.products;
-                totalPages = data.totalPages;
-                updateAllCategories(productsData);
-                filterAndDisplayProducts();
-                updatePagination();
+                datosProductos = data.products;
+                totalPaginas = data.totalPages;
+                actualizarTodasCategorias(datosProductos);
+                filtrarYMostrarProductos();
+                actualizarPaginacion();
             })
             .catch(error => {
-                console.error('Error fetching products:', error);
+                console.error('Error obteniendo productos:', error);
             });
     }
 
-    function updateAllCategories(products) {
-        products.forEach(product => {
-            allCategories.add(product.category);
+    // Función para actualizar la lista de categorías
+    function actualizarTodasCategorias(productos) {
+        todasCategorias.clear();
+        productos.forEach(producto => {
+            todasCategorias.add(producto.category);
         });
-        populateCategoryFilter();
+        poblarFiltroCategoria();
     }
 
-    function populateCategoryFilter() {
-        filterCategory.innerHTML = '<option value="all">Todas las Categorías</option>';
-        allCategories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
-            filterCategory.appendChild(option);
+    // Función para poblar el filtro de categorías
+    function poblarFiltroCategoria() {
+        const categoriaSeleccionada = filtrarCategoria.value;
+        filtrarCategoria.innerHTML = '<option value="all">Todas las Categorías</option>';
+        todasCategorias.forEach(categoria => {
+            const opcion = document.createElement('option');
+            opcion.value = categoria;
+            opcion.textContent = categoria;
+            if (categoria === categoriaSeleccionada) {
+                opcion.selected = true;
+            }
+            filtrarCategoria.appendChild(opcion);
         });
     }
 
-    function filterAndDisplayProducts() {
-        const query = searchInput.value.toLowerCase();
-        const selectedCategory = filterCategory.value;
-        const selectedSortOrder = sortOrder.value;
+    // Función para filtrar y mostrar productos
+    function filtrarYMostrarProductos() {
+        const consulta = buscarInput.value.toLowerCase();
+        const categoriaSeleccionada = filtrarCategoria.value;
+        const ordenSeleccionado = ordenarPrecio.value;
 
-        let filteredProducts = productsData.filter(product => {
+        let productosFiltrados = datosProductos.filter(producto => {
             return (
-                (selectedCategory === 'all' || product.category === selectedCategory) &&
-                product.name.toLowerCase().includes(query)
+                (categoriaSeleccionada === 'all' || producto.category === categoriaSeleccionada) &&
+                producto.name.toLowerCase().includes(consulta)
             );
         });
 
-        if (selectedSortOrder === 'asc') {
-            filteredProducts.sort((a, b) => a.price - b.price);
+        if (ordenSeleccionado === 'asc') {
+            productosFiltrados.sort((a, b) => a.price - b.price);
         } else {
-            filteredProducts.sort((a, b) => b.price - a.price);
+            productosFiltrados.sort((a, b) => b.price - a.price);
         }
 
-        displayProducts(filteredProducts);
-
-        prevPageBtn.parentElement.classList.toggle('disabled', currentPage === 1);
-        nextPageBtn.parentElement.classList.toggle('disabled', currentPage === totalPages);
+        mostrarProductos(productosFiltrados);
+        alternarBotonesPaginacion();
     }
 
-    function displayProducts(products) {
-        productsDiv.innerHTML = '';
-        const categories = {};
+    // Función para mostrar productos en el DOM
+    function mostrarProductos(productos) {
+        productosDiv.innerHTML = '';
+        const categorias = {};
 
-        products.forEach(product => {
-            if (!categories[product.category]) {
-                categories[product.category] = [];
+        productos.forEach(producto => {
+            if (!categorias[producto.category]) {
+                categorias[producto.category] = [];
             }
-            categories[product.category].push(product);
+            categorias[producto.category].push(producto);
         });
 
-        for (const category in categories) {
-            const categoryDiv = document.createElement('div');
-            categoryDiv.className = 'product-category';
-            const categoryTitle = document.createElement('h2');
-            categoryTitle.textContent = category;
-            categoryDiv.appendChild(categoryTitle);
+        for (const categoria in categorias) {
+            const categoriaDiv = document.createElement('div');
+            categoriaDiv.className = 'product-category';
+            const tituloCategoria = document.createElement('h2');
+            tituloCategoria.textContent = categoria;
+            categoriaDiv.appendChild(tituloCategoria);
 
-            const productCardContainer = document.createElement('div');
-            productCardContainer.className = 'product-card-container';
+            const contenedorTarjetasProducto = document.createElement('div');
+            contenedorTarjetasProducto.className = 'product-card-container';
 
-            categories[category].forEach(product => {
-                const productDiv = document.createElement('div');
-                productDiv.className = 'product-card';
+            categorias[categoria].forEach(producto => {
+                const productoDiv = document.createElement('div');
+                productoDiv.className = 'product-card';
+                productoDiv.addEventListener('click', () => mostrarModalProducto(producto));
 
-                const productImage = document.createElement('img');
-                productImage.src = product.url_image;
-                productImage.alt = product.name;
+                const imagenProducto = document.createElement('img');
+                imagenProducto.src = producto.url_image;
+                imagenProducto.alt = producto.name;
 
-                const productInfo = document.createElement('p');
-                productInfo.textContent = `${product.name} - $${product.price}`;
+                const infoProducto = document.createElement('p');
+                infoProducto.textContent = `${producto.name} - $${producto.price}`;
 
-                productDiv.appendChild(productImage);
-                productDiv.appendChild(productInfo);
-                productCardContainer.appendChild(productDiv);
+                productoDiv.appendChild(imagenProducto);
+                productoDiv.appendChild(infoProducto);
+                contenedorTarjetasProducto.appendChild(productoDiv);
             });
 
-            categoryDiv.appendChild(productCardContainer);
-            productsDiv.appendChild(categoryDiv);
+            categoriaDiv.appendChild(contenedorTarjetasProducto);
+            productosDiv.appendChild(categoriaDiv);
         }
     }
 
-    function updatePagination() {
-        paginationDiv.innerHTML = '';
-        
-        const prevPage = document.createElement('li');
-        prevPage.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
-        const prevLink = document.createElement('a');
-        prevLink.className = 'page-link';
-        prevLink.href = '#';
-        prevLink.id = 'prevPage';
-        prevLink.textContent = 'Anterior';
-        prevPage.appendChild(prevLink);
-        paginationDiv.appendChild(prevPage);
+    // Función para actualizar la paginación
+    function actualizarPaginacion() {
+        paginacionDiv.innerHTML = '';
 
-        for (let i = 1; i <= totalPages; i++) {
-            const pageItem = document.createElement('li');
-            pageItem.className = 'page-item' + (i === currentPage ? ' active' : '');
-            const pageLink = document.createElement('a');
-            pageLink.className = 'page-link';
-            pageLink.href = '#';
-            pageLink.textContent = i;
-            pageLink.addEventListener('click', (event) => {
+        const paginaAnterior = document.createElement('li');
+        paginaAnterior.className = 'page-item' + (paginaActual === 1 ? ' disabled' : '');
+        const enlacePaginaAnterior = document.createElement('a');
+        enlacePaginaAnterior.className = 'page-link';
+        enlacePaginaAnterior.href = '#';
+        enlacePaginaAnterior.id = 'prevPage';
+        enlacePaginaAnterior.textContent = 'Anterior';
+        paginaAnterior.appendChild(enlacePaginaAnterior);
+        paginacionDiv.appendChild(paginaAnterior);
+
+        for (let i = 1; i <= totalPaginas; i++) {
+            const itemPagina = document.createElement('li');
+            itemPagina.className = 'page-item' + (i === paginaActual ? ' active' : '');
+            const enlacePagina = document.createElement('a');
+            enlacePagina.className = 'page-link';
+            enlacePagina.href = '#';
+            enlacePagina.textContent = i;
+            enlacePagina.addEventListener('click', (event) => {
                 event.preventDefault();
-                currentPage = i;
-                fetchProducts();
+                paginaActual = i;
+                obtenerProductos();
             });
-            pageItem.appendChild(pageLink);
-            paginationDiv.appendChild(pageItem);
+            itemPagina.appendChild(enlacePagina);
+            paginacionDiv.appendChild(itemPagina);
         }
 
-        const nextPage = document.createElement('li');
-        nextPage.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
-        const nextLink = document.createElement('a');
-        nextLink.className = 'page-link';
-        nextLink.href = '#';
-        nextLink.id = 'nextPage';
-        nextLink.textContent = 'Siguiente';
-        nextPage.appendChild(nextLink);
-        paginationDiv.appendChild(nextPage);
+        const paginaSiguiente = document.createElement('li');
+        paginaSiguiente.className = 'page-item' + (paginaActual === totalPaginas ? ' disabled' : '');
+        const enlacePaginaSiguiente = document.createElement('a');
+        enlacePaginaSiguiente.className = 'page-link';
+        enlacePaginaSiguiente.href = '#';
+        enlacePaginaSiguiente.id = 'nextPage';
+        enlacePaginaSiguiente.textContent = 'Siguiente';
+        paginaSiguiente.appendChild(enlacePaginaSiguiente);
+        paginacionDiv.appendChild(paginaSiguiente);
     }
+
+    // Función para mostrar u ocultar botones de paginación
+    function alternarBotonesPaginacion() {
+        btnPaginaAnterior.parentElement.classList.toggle('disabled', paginaActual === 1);
+        btnPaginaSiguiente.parentElement.classList.toggle('disabled', paginaActual === totalPaginas);
+    }
+
+    // Función para mostrar el modal con los detalles del producto
+    function mostrarModalProducto(producto) {
+        document.getElementById('modalProductImage').src = producto.url_image;
+        document.getElementById('modalProductName').textContent = `Nombre: ${producto.name}`;
+        document.getElementById('modalProductPrice').textContent = `Precio: $${producto.price}`;
+        document.getElementById('modalProductDescription').textContent = `Descripción: ${producto.description}`;
+        document.getElementById('modalProductStock').textContent = `Stock: ${producto.stock}`;
+        document.getElementById('modalProductSku').textContent = `SKU: ${producto.sku}`;
+        jQuery('#productModal').modal('show');
+    }
+
+    // Iniciar la carga de productos
+    obtenerProductos();
 });

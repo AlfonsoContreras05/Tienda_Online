@@ -50,11 +50,12 @@ body {
     text-align: center;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 8px var(--box-shadow-color);
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
+    transform: scale(1.05);
     box-shadow: 0 8px 16px var(--hover-box-shadow-color);
 }
 
@@ -68,4 +69,34 @@ body {
 
 .product-card p {
     margin: 0;
+}
+
+.product-details {
+    display: none;
+}
+
+.product-card:hover .product-details {
+    display: block;
+    margin-top: 10px;
+}
+
+.modal-body img {
+    margin-bottom: 20px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid black;
+}
+
+.modal-body p {
+    margin-bottom: 10px;
+}
+
+.modal-header {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.modal-body button {
+    margin-top: 20px;
 }
